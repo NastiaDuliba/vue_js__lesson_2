@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/fonts.css">
+   <link rel="stylesheet" href="css/reset.css">
+   <link rel="stylesheet" href="css/style.css">
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <script src="js/script.js"></script>
+   <title>Lesson 2</title>
+</head>
+<body>
+   <style>
+      .correct-answer{
+         outline: 10px solid green;
+      }
+      .not-the-correct-answer{
+         outline: 10px solid red;
+      }
+   </style>
+   <div class="wrapper">
+      <main class="main__container">
+         <h2>завдання № 3</h2>
+         <div id="app">
+            <div class="language-trainer">
+               <div class="language-trainer__block">
+                  <div :class="['language-trainer__img',classBorder]">
+                     <img :src="currentElement.image" alt="">
+                  </div>
+                  <div class="language-trainer__text">
+                     <div class="language-trainer__word">{{currentElement.word}}</div>
+                     <div class="language-trainer__translate">
+                        <label > Ваш переклад</label>
+                        <br>
+                        <br>
+                     <input  v-model="userAnswer" type="text" >
+                     </div>
+                     <button @click="checkAnswer" class="language-trainer__button">
+                        Перевірити
+                     </button>
+                     <button @click="loadNextElement"> Очистити поле</button>
+                  </div>
+               </div>
+            </div>
+          
+
+         </div>
+   <script>
+
+//Задача 3. Елемент тренажера англійської. Виводимо зображення елемента і слово. Користувач вводить відповідь. Якщо вірно – відтворюємо фразу «Добре. Молодець!» (і додаємо зелену рамку до елемента), якщо ні - то відтворюємо фразу «Невірно, спробуйте ще раз» (і додаємо червону рамку).
+
+const {createApp} = Vue
+let elements= [
+   { 
+      word:'penaple',
+      image:'img/penaple.jpeg',
+      translate: 'Ананас'
+   },
+   { 
+      word:'pen',
+      image:'img/pen.jpeg',
+      translate: 'Ручка'
+   },
+   { 
+      word: 'headphone',
+      image:'img/headphone.jpeg',
+      translate: 'Навушники'
+   },
+   { 
+      word: 'table',
+      image:'img/table.jpeg',
+      translate: 'Стіл'
+   },
+]
+
+ createApp({
+  data(){
+     return{ 
+      currentElementIndex: 0,
+      containerClass: '',
+      userAnswer:'',
+      classBorder:''
+      
+  
+     }
+  
+
+  
+  },
+
+ methods:{
+   checkAnswer(){
+   
+   const correctAnswer =  this.currentElement.translate.toLowerCase();
+   if (this.userAnswer.toLowerCase() ===  correctAnswer ) {
+      this.classBorder = 'correct-answer'
+      
+   }else{
+      this.classBorder = 'not-the-correct-answer'
+   }
+ },
+ loadNextElement(){
+   this.currentElementIndex = (this.currentElementIndex +1) % elements.length;
+   this.containerClass = ''
+   this.userAnswer = ''
+   this.classBorder = ''
+ }
+
+ },
+ computed:{
+   currentElement(){
+      return elements[this.currentElementIndex]
+   },
+ 
+
+
+
+ }
+
+}).mount('#app')
+   
+   </script>
+
+      </main>
+   
+
+</div>
+</body>
+</html>
+

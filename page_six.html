@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/fonts.css">
+   <link rel="stylesheet" href="css/reset.css">
+   <link rel="stylesheet" href="css/style.css">
+   <script src="js/script.js"></script>
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <title>Lesson 2</title>
+</head>
+<body>
+   <div class="wrapper">
+      <main class="main__container">
+         <h2>завдання № 6</h2>
+Цю задачу не змогла виконати поясніть пліз
+         <div id="app">
+            <div class="restaurant">
+               <div class="restaurant__header">
+                  <label> Нова замовленна страва:</label>
+                  <input class="restaurant__input" v-model="order" type="text">
+                  <button class="restaurant__button" @click = "addingFood()" type="button"> Додати </button>
+               </div>
+               <div class="restaurant__body">
+                  
+                  <div class="restaurant__waiting-list  waiting-list list">
+                     <div class="waiting-list__header">
+                         Очікують на виконання
+                     </div>
+                     <div class="waiting-list__body">
+                        <div v-for="(el,index) in waitingList"  :key="index" class="waiting-list__item">
+                            {{el}}
+                            <button @click="addProcessingList(index)" > Готувати</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="restaurant__processing-list processing-list list">
+                     <div class="processing-list__header">
+                        Виконуються
+                     </div> 
+                     <div class="processing-list__body">
+                        <div v-for="i in processingList" class="processing-list__item">
+                        {{i}}
+                        </div>
+                     </div>
+                  </div>
+                  <div class="restaurant__completed-list completed-list list">
+                     <div class="completed-list__header">Готові до виносу</div>
+                     <div class="completed-list__body">
+                        <div class="completed-list__item"></div>
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+
+          
+        
+         </div>
+   <script>
+
+const {createApp} = Vue
+ createApp({
+  data(){
+     return{ 
+      order: '',
+      waitingList:  [],
+      processingList: [],
+      completedList: [],
+     
+         
+
+   
+      
+    
+     }
+  
+
+  
+  },
+
+ methods:{
+   addingFood(){
+    if (this.order ) {
+      this.waitingList.push(this.order)
+      this.order = ''
+      
+    }
+      
+   
+   },
+   addProcessingList(index){
+  const dish = this.waitingList.spice(index, 1)[0]
+  this.waitingList.push(dish)
+   }
+  
+  
+
+ },
+ computed:{
+  
+
+
+  
+   
+
+ }
+
+}).mount('#app')
+   
+    
+   </script>
+
+      </main>
+   
+
+</div>
+</body>
+</html>
